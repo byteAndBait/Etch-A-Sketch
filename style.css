@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    min-height: 100vh;
+    min-height: 100dvh;
+    display:grid;
+    place-items: center;
+}
+.container{
+    border: 10px red solid;
+    display: flex;
+    width: 40rem;
+    height: 40rem;
+    flex-wrap: wrap;
+}
+.container .box{
+    flex: 0 25%;
+    border: solid 1px black;
+    transition: .2s;
+}
+.container .box:hover{
+    background: rgba(128, 0, 128, 0.308);
+}
