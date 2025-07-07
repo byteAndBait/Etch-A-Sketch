@@ -7,7 +7,7 @@ button.addEventListener("click", () => {
   input = prompt("Enter the number of grids");
   if (input > 100) {
     alert("input is higher than 100");
-    input = 16;
+    input = 2;
     return;
   }
   document.querySelectorAll(".box").forEach((e) => {
@@ -28,44 +28,26 @@ function makeGrid() {
 function getRandom(max) {
   return parseInt(Math.random() * max);
 }
-let tenPecentMinus
+let rColor,gColor,bColor, tenPercentMinus;
 container.addEventListener("mouseover", (e) => {
   if (e.target.classList.contains("box")) {
-    if (e.target.style.background) {
-      e.target.setAttribute(
-        "data-r",
-        e.target.getAttribute("data-r") -tenPecentMinus
-      );
-
-      e.target.setAttribute(
-        "data-g",
-        e.target.getAttribute("data-g") - tenPecentMinus
-      );
-
-      e.target.setAttribute(
-        "data-b",
-        e.target.getAttribute("data-b") -tenPecentMinus
-      );
-
-      e.target.style.background = `rgb(${e.target.getAttribute(
-        "data-r"
-      )},${e.target.getAttribute("data-g")},${e.target.getAttribute(
-        "data-b"
-      )})`;
+    if (getComputedStyle(e.target).getPropertyValue("--white-back") == 1) {
+      e.target.style.setProperty("--r", getRandom(255));
+      e.target.style.setProperty("--g", getRandom(255));
+      e.target.style.setProperty("--b", getRandom(255));
+      rColor = +getComputedStyle(e.target).getPropertyValue("--r");
+      gColor = +getComputedStyle(e.target).getPropertyValue("--g");
+      bColor = +getComputedStyle(e.target).getPropertyValue("--b");
+      tenPercentMinus = Math.max(rColor,gColor,bColor) * 0.1
+      e.target.style.setProperty("--white-back", 0);
     } else {
-      e.target.setAttribute("data-r", getRandom(255));
-      e.target.setAttribute("data-g", getRandom(255));
-      e.target.setAttribute("data-b", getRandom(255));
-      
-       tenOfR = 0.1 * e.target.getAttribute("data-r");
-       tenOfG = 0.1 * e.target.getAttribute("data-g");
-       tenOfB = 0.1 * e.target.getAttribute("data-b");
-       tenPecentMinus = 0.1 * Math.max(e.target.getAttribute("data-r"),e.target.getAttribute("data-g"),e.target.getAttribute("data-b"))
-      e.target.style.background = `rgb(${e.target.getAttribute(
-        "data-r"
-      )},${e.target.getAttribute("data-g")},${e.target.getAttribute(
-        "data-b"
-      )})`;
+       rColor = +getComputedStyle(e.target).getPropertyValue("--r");
+       gColor = +getComputedStyle(e.target).getPropertyValue("--g");
+       bColor = +getComputedStyle(e.target).getPropertyValue("--b");
+      console.log(tenPercentMinus)
+      e.target.style.setProperty("--r", rColor -tenPercentMinus);
+      e.target.style.setProperty("--g", gColor - tenPercentMinus);
+      e.target.style.setProperty("--b", bColor - tenPercentMinus);
     }
   }
 });
