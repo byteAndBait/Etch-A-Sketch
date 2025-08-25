@@ -10,10 +10,10 @@ body{
     place-items: center;
 }
 .container{
-    border: 5px black solid;
+    border: 2px rgba(0, 0, 0, 0.5) solid;
     display: flex;
-    width: 35rem;
-    height: 35rem;
+    width: 30rem;
+    height: 30rem;
     flex-wrap: wrap;
 }
 .container .box{
@@ -22,6 +22,6 @@ body{
     --g:255;
     --white-back : 1;
     background: rgb(var(--r),var(--g),var(--b));
-    border: solid 1px rgba(0, 0, 0, 0.5);
-    /* transition: .3s; */
+    border: solid 1px rgba(0, 0, 0, 0.1);
+    transition: .3s;
 }

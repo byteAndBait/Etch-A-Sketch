@@ -1,26 +1,19 @@
-let container = document.querySelector(".container");
-const button = document.getElementById("gridPromptOpen");
-let input = 2;
+const container = document.querySelector(".container");
+const inputElement = document.getElementById("gridNumber")
+let input = inputElement.value;
 
 makeGrid();
-button.addEventListener("click", () => {
-  input = prompt("Enter the number of grids");
-  if (input > 100) {
-    alert("input is higher than 100");
-    input = 2;
-    return;
-  }
-  document.querySelectorAll(".box").forEach((e) => {
-    e.remove();
-  });
+inputElement.addEventListener("input", () => {
+  input = inputElement.value;
+  container.textContent = "";
   makeGrid();
 });
 
 function makeGrid() {
-  for (let i = 0; i < input * input; i++) {
+  for (let i = 0; i < input ** 2; i++) {
     let box = document.createElement("div");
     box.classList.add("box");
-    box.style.cssText = `flex: 1 ${(1 / input) * 100}%`;
+    box.style.flex = `1 ${(1 / input) * 100}%`;
     container.appendChild(box);
   }
 }
