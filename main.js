@@ -1,23 +1,32 @@
-const container = document.querySelector(".container");
-const inputElement = document.getElementById("numberOfGridsInput");
-const labelForInput = document.getElementById("numberOfGridsLabel");
 const mainContainer = document.querySelector(".etch-a-sketch-container");
-let r = null, g = null, b = null;
+const gridsContainer = mainContainer.querySelector(".container");
+const gridsInputElement = document.getElementById("numberOfGridsInput");
+const labelForInput = mainContainer.querySelector(".numberOfGridsLabel");
+const colorInputElement = document.getElementById("colorInput")
+// Modes
+const solidColorModeElement = document.getElementById("solidColorMode");
+const rainbowModeElement = document.getElementById("rainbowMode");
+const eraserModeElement = document.getElementById("eraserMode")
+
+let currentMode = solidColorModeElement.id;
+let r = 0, g = 0, b = 0;
+
 makeGrid();
-inputElement.addEventListener("input", () => {
-  makeGrid();
-  labelForInput.textContent = inputElement.value;
-});
+
 function makeGrid() {
-  container.textContent = "";
-  for (let i = 0; i < inputElement.value ** 2; i++) {
+  gridsContainer.textContent = "";
+  for (let i = 0; i < gridsInputElement.value ** 2; i++) {
     const box = document.createElement("div");
     box.classList.add("box");
-    box.style.flexBasis = `${(1 / inputElement.value) * 100}%`;
-    container.appendChild(box);
+    box.style.flexBasis = `${(1 / gridsInputElement.value) * 100}%`;
+    gridsContainer.appendChild(box);
   }
 }
-
+function setRGBVariablesFromHex(hexColor) {
+  r = parseInt(hexColor.substring(1, 3), 16)
+  g = parseInt(hexColor.substring(3, 5), 16)
+  b = parseInt(hexColor.substring(5, 7), 16)
+}
 function getRandom(max) {
   return parseInt(Math.random() * max);
 }
@@ -25,29 +34,33 @@ function setRGB(element) {
   element.style.setProperty("--r", r);
   element.style.setProperty("--g", g);
   element.style.setProperty("--b", b);
+  element.style.setProperty("--brightness", 1);
 }
-container.addEventListener("mouseover", (e) => {
+gridsContainer.addEventListener("mouseover", (e) => {
   const element = e.target;
   if (element.classList.contains("box")) {
-    if (r + g + b == 255 * 3) {
+    if(currentMode == eraserModeElement.id)
+    {
+      r = g = b = 255
       setRGB(element);
-      element.style.setProperty("--white-back", 1);
+      element.classList.remove("colored")
       return;
     }
-    const isWhite = getComputedStyle(element).getPropertyValue("--white-back")
-    if (isWhite == 1) {
-      if (r == null) {
+    
+    if (!element.classList.contains("colored")) {
+      if(currentMode == rainbowModeElement.id)
+      {
         r = getRandom(255);
         g = getRandom(255);
         b = getRandom(255);
-        r = g = b = null;
         setRGB(element);
       }
-      else
+      else if (currentMode == solidColorModeElement.id)
       {
-        setRGB(element);
+        setRGBVariablesFromHex(colorInputElement.value)
+        setRGB(element)
       }
-      element.style.setProperty("--white-back", 0);
+      element.classList.add("colored")
     }
   }
 });
@@ -55,9 +68,9 @@ container.addEventListener("mouseover", (e) => {
 mainContainer.addEventListener("click", (e) => {
   const element = e.target;
   if (element.classList.contains("box")) {
-    const isWhite = getComputedStyle(element).getPropertyValue("--white-back")
 
-    if (isWhite == 0) // if it is has a value
+
+    if (element.classList.contains("colored"))
     {
       let currentBrightness = +getComputedStyle(element).getPropertyValue("--brightness") * 100;
       if (currentBrightness > 0) {
@@ -65,20 +78,20 @@ mainContainer.addEventListener("click", (e) => {
       }
     }
   }
-  else if (element.classList.contains("rainbow")) {
-    r = g = b = null;
-  }
-  else if (element.classList.contains("eraser")) {
-    r = g = b = 255;
+  else if(element.classList.contains("mode"))
+  {
+    currentMode = element.id;
   }
 })
 
 mainContainer.addEventListener("input", (e) => {
   const element = e.target;
-  if (element.id == "colorInput") {
+  if (element.id == colorInputElement.id) {
     const hexColor = element.value
-    r = parseInt(hexColor.substr(1, 2), 16)
-    g = parseInt(hexColor.substr(3, 2), 16)
-    b = parseInt(hexColor.substr(5, 2), 16)
+    setRGBVariablesFromHex(hexColor)
+  }
+  else if (element.id == gridsInputElement.id) {
+    makeGrid();
+    labelForInput.textContent = gridsInputElement.value;
   }
 })

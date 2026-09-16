@@ -6,11 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Etch-a-Sketch</title>
-    <link rel="preload" as="font" href="fonts/Roboto-Regular.woff" crossorigin>
-    <link rel="preload" as="font" href="fonts/Roboto-Regular.woff2" crossorigin>
-    <link rel="preload" as="font" href="fonts/Roboto-Bold.woff" crossorigin>
-    <link rel="preload" as="font" href="fonts/Roboto-Bold.woff2" crossorigin>
-    <link rel="stylesheet" href="fonts.css">
+    <style>
+        @font-face {
+            font-family: "Roboto";
+            src:
+                url("fonts/Roboto-Regular.woff2") format("woff2"),
+                url("fonts/Roboto-Regular.woff") format("woff");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Roboto";
+            src:
+                url("fonts/Roboto-Bold.woff2") format("woff2"),
+                url("fonts/Roboto-Bold.woff") format("woff");
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+    <link rel="preload" href="./fonts/Roboto-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="./fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="/favicon.svg">
     <script src="main.js" defer></script>
@@ -19,16 +37,15 @@
 <body>
     <div class="etch-a-sketch-container">
         <div class="tools">
-            <div class="input-holder">
-                <label for="numberOfGridsInput" id="numberOfGridsLabel">2</label>
+            <div class="gridsInput-holder">
                 <input type="range" min="2" max="100" value="2" id="numberOfGridsInput">
+                <label for="numberOfGridsInput" class="numberOfGridsLabel">2</label>
             </div>
             <div class="modes">
-                <label for="colorInput">Color: 
-                    <input type="color" class="mode" id="colorInput">
-                </label>
-                <button class="mode rainbow">Rainbow</button>
-                <button class="mode eraser">Eraser</button>
+                <input type="color" id="colorInput">
+                <button class="mode" id="solidColorMode">Solid Color</button>
+                <button class="mode" id="eraserMode">Eraser</button>
+                <button class="mode" id="rainbowMode">Rainbow</button>
             </div>
         </div>
         <div class="container">
