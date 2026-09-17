@@ -31,26 +31,35 @@
     <link rel="preload" href="./fonts/Roboto-Bold.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="/favicon.svg">
+    <script src="https://kit.fontawesome.com/8ab226dd0b.js" crossorigin="anonymous"></script>
     <script src="main.js" defer></script>
 </head>
 
 <body>
     <div class="etch-a-sketch-container">
         <div class="tools">
-            <div class="gridsInput-holder">
-                <input type="range" min="2" max="100" value="2" id="numberOfGridsInput">
-                <label for="numberOfGridsInput" class="numberOfGridsLabel">2</label>
-            </div>
-            <div class="modes">
+            <div class="inputHolders">
+                <div class="gridsInput-holder">
+                    <label for="numberOfGridsInput" class="numberOfGridsLabel">2</label>
+                    <input type="range" min="2" max="100" value="2" id="numberOfGridsInput">
+                </div>
                 <input type="color" id="colorInput">
-                <button class="mode" id="solidColorMode">Solid Color</button>
-                <button class="mode" id="eraserMode">Eraser</button>
-                <button class="mode" id="rainbowMode">Rainbow</button>
+            </div>
+
+            <div class="modes">
+                <button class="mode" id="solidColorMode"><i class="fa-solid fa-fill-drip"></i>
+                </button>
+                <button class="mode" id="eraserMode"><i class="fa-solid fa-eraser"></i>
+                </button>
+                <button class="mode" id="rainbowMode"><i class="fa-solid fa-palette"></i>
+                </button>
             </div>
         </div>
         <div class="container">
         </div>
     </div>
 </body>
-
+<!-- 
+    Fix buttons don't work if you click text or icon
+-->
 </html>

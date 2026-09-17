@@ -39,24 +39,21 @@ function setRGB(element) {
 gridsContainer.addEventListener("mouseover", (e) => {
   const element = e.target;
   if (element.classList.contains("box")) {
-    if(currentMode == eraserModeElement.id)
-    {
+    if (currentMode == eraserModeElement.id) {
       r = g = b = 255
       setRGB(element);
       element.classList.remove("colored")
       return;
     }
-    
+
     if (!element.classList.contains("colored")) {
-      if(currentMode == rainbowModeElement.id)
-      {
+      if (currentMode == rainbowModeElement.id) {
         r = getRandom(255);
         g = getRandom(255);
         b = getRandom(255);
         setRGB(element);
       }
-      else if (currentMode == solidColorModeElement.id)
-      {
+      else if (currentMode == solidColorModeElement.id) {
         setRGBVariablesFromHex(colorInputElement.value)
         setRGB(element)
       }
@@ -70,17 +67,15 @@ mainContainer.addEventListener("click", (e) => {
   if (element.classList.contains("box")) {
 
 
-    if (element.classList.contains("colored"))
-    {
+    if (element.classList.contains("colored")) {
       let currentBrightness = +getComputedStyle(element).getPropertyValue("--brightness") * 100;
       if (currentBrightness > 0) {
         element.style.setProperty("--brightness", (currentBrightness - 10) / 100);
       }
     }
   }
-  else if(element.classList.contains("mode"))
-  {
-    currentMode = element.id;
+  else if (element.closest(".mode")) {
+    currentMode = element.closest(".mode").id;
   }
 })
 
@@ -89,6 +84,7 @@ mainContainer.addEventListener("input", (e) => {
   if (element.id == colorInputElement.id) {
     const hexColor = element.value
     setRGBVariablesFromHex(hexColor)
+    currentMode = solidColorModeElement.id
   }
   else if (element.id == gridsInputElement.id) {
     makeGrid();

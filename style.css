@@ -16,25 +16,6 @@ body {
   font-family: "Roboto", serif;
   background-color: var(--body-bg);
 }
-.container {
-  border: 2px rgba(0, 0, 0, 0.5) solid;
-  display: flex;
-  width: 30rem;
-  height: 30rem;
-  flex-wrap: wrap;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.container .box {
-  --r: 255;
-  --b: 255;
-  --g: 255;
-  --brightness: 1;
-  background: rgb(var(--r), var(--g), var(--b));
-  border: solid 1px rgba(0, 0, 0, 0.1);
-  filter: brightness(var(--brightness));
-  transition: 0.3s;
-}
 .etch-a-sketch-container {
   background-color: var(--primary-color);
   padding: 2.5rem;
@@ -48,31 +29,53 @@ body {
     0 8px 8px hsl(0deg 0% 0% / 0.075),
     0 16px 16px hsl(0deg 0% 0% / 0.075);
 }
+
+.etch-a-sketch-container .container {
+  border: 2px rgba(0, 0, 0, 0.5) solid;
+  display: flex;
+  min-width: 30rem;
+  height: 30rem;
+  flex-wrap: wrap;
+  border-radius: 10px;
+  overflow: hidden;
+  flex: 1;
+}
+.etch-a-sketch-container .container .box {
+  --r: 255;
+  --b: 255;
+  --g: 255;
+  --brightness: 1;
+  background: rgb(var(--r), var(--g), var(--b));
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  filter: brightness(var(--brightness));
+  transition: 0.3s;
+}
+
 .etch-a-sketch-container .tools .gridsInput-holder {
   display: flex;
   align-items: center;
-  background-color: white;
-  padding: 10px;
   gap: 5px;
-  border-radius: 10px;
 }
-
-.etch-a-sketch-container .tools .modes {
-  margin-top: 10px;
+.etch-a-sketch-container .inputHolders {
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
   padding: 10px;
   border-radius: 10px;
-  display: grid;
-  gap: 20px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }
-.etch-a-sketch-container #colorInput
-{
+.etch-a-sketch-container #colorInput {
   appearance: none;
   --size: 80px;
-  margin: 0 auto;
   width: var(--size);
   height: var(--size);
-  border:none;
+  align-self: center;
+  border: none;
   padding: none;
   border-radius: 50%;
   -webkit-border-radius: 50%;
@@ -85,18 +88,36 @@ body {
   -ms-transform: 100ms ease;
   -o-transform: 100ms ease;
 }
-.etch-a-sketch-container #colorInput:hover{
+.etch-a-sketch-container #colorInput:hover {
   transform: scale(1.11);
   -webkit-transform: scale(1.11);
   -moz-transform: scale(1.11);
   -ms-transform: scale(1.11);
   -o-transform: scale(1.11);
 }
-.etch-a-sketch-container #colorInput::-webkit-color-swatch-wrapper
-{
+.etch-a-sketch-container #colorInput::-webkit-color-swatch-wrapper {
   padding: 0;
 }
-.etch-a-sketch-container #colorInput::-webkit-color-swatch
-{
-  border:none
+.etch-a-sketch-container #colorInput::-webkit-color-swatch {
+  border: none;
+}
+
+/* Modes */
+.etch-a-sketch-container .tools .modes {
+  margin-top: 20px;
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.etch-a-sketch-container .tools .modes button.mode {
+  font-size: 1rem;
+  width: 50px;
+  height: 50px;
 }
